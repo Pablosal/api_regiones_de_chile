@@ -1,0 +1,82 @@
+[
+  {
+    "region": "Arica y Parinacota",
+    "region_number": "XV",
+    "region_iso_3166_2": "CL-AP"
+  },
+  {
+    "region": "Tarapacá",
+    "region_number": "I",
+    "region_iso_3166_2": "CL-TA"
+  },
+  {
+    "region": "Antofagasta",
+    "region_number": "II",
+    "region_iso_3166_2": "CL-AN"
+  },
+  {
+    "region": "Atacama",
+    "region_number": "III",
+    "region_iso_3166_2": "CL-AT"
+  },
+  {
+    "region": "Coquimbo",
+    "region_number": "IV",
+    "region_iso_3166_2": "CL-CO"
+  },
+  {
+    "region": "Valparaíso",
+    "region_number": "V",
+    "region_iso_3166_2": "CL-VS"
+  },
+  {
+    "region": "Región del Libertador Gral. Bernardo O'Higgins",
+    "region_number": "VI",
+    "region_iso_3166_2": "CL-LI"
+  },
+  {
+    "region": "Región del Maule",
+    "region_number": "VII",
+    "region_iso_3166_2": "CL-ML"
+  },
+  {
+    "region": "Región de Ñuble",
+    "region_number": "XVI",
+    "region_iso_3166_2": "CL-NB"
+  },
+  {
+    "region": "Región del Biobío",
+    "region_number": "VIII",
+    "region_iso_3166_2": "CL-BI"
+  },
+  {
+    "region": "Región de la Araucanía",
+    "region_number": "IX",
+    "region_iso_3166_2": "CL-AR"
+  },
+  {
+    "region": "Región de los Ríos",
+    "region_number": "XIV",
+    "region_iso_3166_2": "CL-LR"
+  },
+  {
+    "region": "Región de los Lagos",
+    "region_number": "X",
+    "region_iso_3166_2": "CL-LL"
+  },
+  {
+    "region": "Región Aisén del Gral. Carlos Ibañez del Campo",
+    "region_number": "XI",
+    "region_iso_3166_2": "CL-AI"
+  },
+  {
+    "region": "Región de Magallanes y de la Antártica Chilena",
+    "region_number": "XII",
+    "region_iso_3166_2": "CL-MA"
+  },
+  {
+    "region": "Región Metropolitana de Santiago",
+    "region_number": "XIII",
+    "region_iso_3166_2": "CL-RM"
+  }
+]

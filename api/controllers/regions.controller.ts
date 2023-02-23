@@ -1,5 +1,5 @@
 import regiones from '../../region.json';
-class RegionController {
+class RegionsController {
   constructor() {
     // this.tsRegiones = JSON.parse(regiones);
   }
@@ -9,5 +9,5 @@ class RegionController {
   }
 
 }
-const regionController = new RegionController();
-export default regionController;
+const regionsController = new RegionsController();
+export default regionsController;

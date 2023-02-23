@@ -1,6 +1,0 @@
-//get regiones
-# GET http://localhost:5000/api/regiones
-//get region especifica
-# GET http://localhost:5000/api/regiones/IVI
-//get comunas
-GET http://localhost:5000/api/IV/comunas

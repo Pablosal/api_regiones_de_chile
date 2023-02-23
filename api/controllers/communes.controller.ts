@@ -1,5 +1,5 @@
 import comunasData from '../../comunas.json';
-class ComunasController {
+class CommunesController {
   constructor() { }
   getComunasDe(req, res) {
     const comunaEncontrada = comunasData.find(
@@ -10,5 +10,5 @@ class ComunasController {
   }
 }
 
-const comunasController = new ComunasController();
-export default comunasController;
+const communesController = new CommunesController();
+export default communesController;

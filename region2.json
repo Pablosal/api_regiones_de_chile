@@ -6,6 +6,7 @@
       "romanNumber": "XV",
       "number": "15",
       "abbreviation": "AP",
+      "number_of_communes": 12,
       "communes": [
         { "name": "Arica", "identifier": "XV-1" },
         { "name": "Camarones", "identifier": "XV-2" },

@@ -1,13 +1,19 @@
 import express from 'express';
-import comunasRouter from './routes/comunas.routes';
-import regionesRoutes from './routes/regiones.routes';
-
+import comunasRouter from './v1/routes/communes.routes';
+import regionesRoutes from './v1/routes/regions.routes';
+import dotenv from 'dotenv'
+dotenv.config()
 
 var app = express();
+
 app.get('/', (req, res) => {
   res.send('hello my  ');
 });
-app.use('/api/regiones', regionesRoutes);
-app.use('/api/', comunasRouter);
+app.use('/api/v1/regiones', regionesRoutes);
+app.use('/api/v1/communes', comunasRouter);
 
-app.listen(5000, () => console.log("Api creada a 10"));
+app.listen(process.env.PORT, () => console.log(`Aplicacion corriendo en el puerto ${process.env.PORT}`));
+// TOPOJSON ?
+
+
+

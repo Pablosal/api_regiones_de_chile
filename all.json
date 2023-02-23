@@ -1,0 +1,33 @@
+[
+  {
+    "id": "",
+    "country_name": "",
+    "number_of_regions": ""
+  },
+  {
+    "id": "",
+    "province_name": " varchar(255)",
+    "code": "varchar(8)",
+    "provincial_capital": "varchar(255)",
+    "country_id": 0
+  },
+  {
+    "id": "",
+    "region_name": " varchar(255)",
+    "roman_number": "varchar(5)",
+    "region_number": 21,
+    "abbreviation": "varchar(3)",
+    "region_iso_3166_2_CL": " varchar(5)",
+    "country_id": ""
+  },
+  {
+    "id": "",
+    "commune_name": "",
+    "code": "",
+    "identifier": "",
+    "region_id": "",
+    "province_id": "",
+    "postal_code": "",
+    "coordinates": ""
+  }
+]

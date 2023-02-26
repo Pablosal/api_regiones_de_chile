@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model countries {
+  id                String   @id @default(uuid())
+  // timestamps
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  country_name      String   @db.VarChar(255)
+  number_of_regions Int
+}
+
+model provinces {
+  id                 String @id @default(uuid())
+  province_name      String @db.VarChar(255)
+  province_code      String @db.VarChar(8)
+  provincial_capital String @db.VarChar(8)
+  // country_id         countries @relation(fields: [country_id], references: [id])
+  // country_id         String
+}
+
+// Table territorial_division.provinces as P{
+//   id uuid [pk] 
+//   province_name varchar(255)
+//   code varchar(8)
+//   provincial_capital varchar(255)
+//   country_id int [ref: > C.id]
+
+// }
+// Table territorial_division.regions as R{
+//   id uuid [pk] 
+//   region_name varchar(255)
+//   roman_number varchar(5)
+//   region_number int
+//   abbreviation varchar(3)
+//   region_iso_3166_2 varchar(5)
+//   country_id int [ref: > C.id]
+
+// }
+// Table territorial_division.communes{
+//   id uuid [pk] 
+//   commune_name varchar(255)
+//   code varchar(10)
+//   identifier varchar(5)
+//   region_id int  [ref: > R.id]
+//   province_id int  [ref: > P.id]
+//   postal_code int
+//   coordinates varchar(255)
+// }

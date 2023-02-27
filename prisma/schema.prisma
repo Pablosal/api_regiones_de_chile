@@ -10,49 +10,57 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model countries {
-  id                String   @id @default(uuid())
+model country {
+  id                String     @id @default(uuid())
   // timestamps
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  country_name      String   @db.VarChar(255)
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+  country_name      String     @db.VarChar(255)
   number_of_regions Int
+  provinces         province[]
+  regions           region[]
 }
 
-model provinces {
-  id                 String @id @default(uuid())
-  province_name      String @db.VarChar(255)
-  province_code      String @db.VarChar(8)
-  provincial_capital String @db.VarChar(8)
-  // country_id         countries @relation(fields: [country_id], references: [id])
-  // country_id         String
+model province {
+  id                 String   @id @default(uuid())
+  // timestamps
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  province_name      String   @db.VarChar(255)
+  province_code      String   @db.VarChar(8)
+  provincial_capital String   @db.VarChar(8)
+  country            country? @relation(fields: [countryId], references: [id])
+  countryId          String?
 }
 
-// Table territorial_division.provinces as P{
-//   id uuid [pk] 
-//   province_name varchar(255)
-//   code varchar(8)
-//   provincial_capital varchar(255)
-//   country_id int [ref: > C.id]
+model region {
+  id                  String   @id @default(uuid())
+  // timestamps
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  region_name         String   @db.VarChar(255)
+  roman_number        String   @db.VarChar(3)
+  region_number       Int
+  region_abbreviation String   @db.VarChar(3)
+  region_iso_3166_2   String   @db.VarChar(5)
 
-// }
-// Table territorial_division.regions as R{
-//   id uuid [pk] 
-//   region_name varchar(255)
-//   roman_number varchar(5)
-//   region_number int
-//   abbreviation varchar(3)
-//   region_iso_3166_2 varchar(5)
-//   country_id int [ref: > C.id]
+  country   country? @relation(fields: [countryId], references: [id])
+  countryId String?
 
-// }
-// Table territorial_division.communes{
-//   id uuid [pk] 
-//   commune_name varchar(255)
-//   code varchar(10)
-//   identifier varchar(5)
-//   region_id int  [ref: > R.id]
-//   province_id int  [ref: > P.id]
-//   postal_code int
-//   coordinates varchar(255)
-// }
+  coomunes commune[]
+}
+
+model commune {
+  id                  String   @id @default(uuid())
+  // timestamps
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  commune_name        String   @db.VarChar(255)
+  commune_code        String   @db.VarChar(10)
+  commune_identifier  String   @db.VarChar(5)
+  commune_postal_code String   @db.VarChar(12)
+  commune_coordinates String   @db.VarChar(200)
+
+  region   region? @relation(fields: [regionId], references: [id])
+  regionId String?
+}

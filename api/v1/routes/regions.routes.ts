@@ -3,9 +3,16 @@ import regionsController from '../../controllers/regions.controller';
 const regionsRouter = express.Router();
 
 
-// Obtain all regions
-regionsRouter.get('/regions/', regionsController.getAllRegions);
+regionsRouter.route("/")
+    // Obtain all regions
+    .get(regionsController.getAllRegions)
+    // Bulk add regions
+    .post(regionsController.addMultipleRegions)
 // Obtain info from a single region
-regionsRouter.get('/regions/:region_iso', regionsController.getAllRegions);
+regionsRouter.get('/:region_iso', regionsController.getOneRegion);
+// ?!Obtain communes from a single region or multiple regions
+regionsRouter.get('/:region_iso/communes', regionsController.getCommunesFromRegion);
+// ?! Obtain all provinces from a region
+regionsRouter.get('/:region_iso/provinces', regionsController.getProvincesFromRegion);
 
 export default regionsRouter;

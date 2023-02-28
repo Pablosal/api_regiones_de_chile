@@ -15,7 +15,7 @@ services:
     restart: always
     container_name: 'pc'
     ports:
-      - 5433:5432
+      - 3001:5432
     volumes:
       - pgdata:/var/lib/postgresql/data
     env_file:

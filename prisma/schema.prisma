@@ -22,15 +22,18 @@ model country {
 }
 
 model province {
-  id                 String   @id @default(uuid())
+  id                 String    @id @default(uuid())
   // timestamps
-  createdAt          DateTime @default(now())
-  updatedAt          DateTime @updatedAt
-  province_name      String   @db.VarChar(255)
-  province_code      String   @db.VarChar(8)
-  provincial_capital String   @db.VarChar(8)
-  country            country? @relation(fields: [countryId], references: [id])
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  province_name      String    @db.VarChar(255)
+  province_code      String    @db.VarChar(8)
+  provincial_capital String    @db.VarChar(8)
+  country            country?  @relation(fields: [countryId], references: [id])
   countryId          String?
+  communes           commune[]
+  region             region?   @relation(fields: [regionId], references: [id])
+  regionId           String?
 }
 
 model region {
@@ -44,10 +47,10 @@ model region {
   region_abbreviation String   @db.VarChar(3)
   region_iso_3166_2   String   @db.VarChar(5)
 
-  country   country? @relation(fields: [countryId], references: [id])
+  country   country?   @relation(fields: [countryId], references: [id])
   countryId String?
-
-  coomunes commune[]
+  provinces province[]
+  communes  commune[]
 }
 
 model commune {
@@ -61,6 +64,8 @@ model commune {
   commune_postal_code String   @db.VarChar(12)
   commune_coordinates String   @db.VarChar(200)
 
-  region   region? @relation(fields: [regionId], references: [id])
-  regionId String?
+  region     region?   @relation(fields: [regionId], references: [id])
+  regionId   String
+  province   province? @relation(fields: [provinceId], references: [id])
+  provinceId String?
 }

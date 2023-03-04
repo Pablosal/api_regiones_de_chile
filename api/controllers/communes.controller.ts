@@ -9,13 +9,13 @@ class CommunesController {
     res.status(200).json({ commune })
   }
   async getAllCommunes(req: Request, res: Response) {
-
-    const regions = await communesService.getAllCommunes()
+    const { page, amount } = req.query
+    const regions = await communesService.getAllCommunes(Number(page), Number(amount))
     res.status(200).json(regions)
 
 
   }
-  async addMultipleRegions(req, res) {
+  async addMultipleCommunes(req, res) {
     const { communes } = req.body
     const records = await communesService.addMultipleCommunes(communes)
     if (!records) return res.status(400).json({ msg: "error in the creation of recors succesfully" })

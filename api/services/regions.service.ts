@@ -4,24 +4,24 @@ class RegionService {
     constructor() {
         // this.tsRegiones = JSON.parse(regiones);
     }
-    async getCommunesFromRegion(regionId) {
-        const communesFR = await region.getCommunesFromRegion(regionId)
-        return communesFR
+    // async getCommunesFromRegion(regionId) {
+    //     const communesFR = await region.getCommunesFromRegion(regionId)
+    //     return communesFR
 
 
-    }
-    async getProvincesFromRegion(regionId) {
-        const provincesFR = await region.getProvincesFromRegion(regionId)
-        return provincesFR
+    // }
+    // async getProvincesFromRegion(regionId) {
+    //     const provincesFR = await region.getProvincesFromRegion(regionId)
+    //     return provincesFR
 
 
-    }
+    // }
     async getOneRegion(regionId) {
         const regionFromDb = await region.getOneRegion(regionId)
         return regionFromDb
     }
-    async getAllRegions() {
-        const regions = await region.getAllRegions()
+    async getAllRegions(page, amount) {
+        const regions = await region.getAllRegions(page, amount)
         return regions
 
 

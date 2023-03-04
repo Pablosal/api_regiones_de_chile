@@ -8,8 +8,8 @@ class CommunesService {
         const regionFromDb = await communes.getOneCommune(regionId)
         return regionFromDb
     }
-    async getAllCommunes() {
-        const regions = await communes.getAllCommunes()
+    async getAllCommunes(page = 1, amount = 6) {
+        const regions = await communes.getAllCommunes(page, amount)
         return regions
 
 

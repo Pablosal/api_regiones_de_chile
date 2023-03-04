@@ -9,7 +9,6 @@ services:
       - type: bind
         source: ./
         target: /app
-      - /app/node_modules
   db:
     image: 'postgres'
     restart: always

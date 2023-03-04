@@ -11,5 +11,6 @@ communesRouter.get('/', communesController.getAllCommunes);
 // obtain a sole commune info
 communesRouter.get('/:commune_code', communesController.getOneCommune);
 
+communesRouter.post('/', communesController.addMultipleCommunes);
 
 export default communesRouter;

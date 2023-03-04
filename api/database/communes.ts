@@ -10,8 +10,16 @@ class Communes {
         if (!commune) return 'A commune with that id was not found'
         return commune
     }
-    async getAllCommunes() {
-        const communes = await prisma.commune.findMany()
+    async getAllCommunes(page = 1, amount = 6) {
+        const amountOfSkips = (page - 1) * amount + 1.
+
+        const communes = await prisma.commune.findMany({
+            skip: amountOfSkips,
+            take: amount,
+            orderBy: {
+                commune_name: 'desc'
+            }
+        })
         if (!communes.length) return 'There are no coomunes in the table yet'
         return communes
 

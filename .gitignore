@@ -1,4 +1,4 @@
 node_modules/
 .env
-all.json
+allore.json
 communes.json

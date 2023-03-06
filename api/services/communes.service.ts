@@ -4,8 +4,8 @@ class CommunesService {
     constructor() {
         // this.tsRegiones = JSON.parse(regiones);
     }
-    async getOneCommune(regionId) {
-        const regionFromDb = await communes.getOneCommune(regionId)
+    async getOneCommune(commune_code) {
+        const regionFromDb = await communes.getOneCommune(commune_code)
         return regionFromDb
     }
     async getAllCommunes(page = 1, amount = 6) {

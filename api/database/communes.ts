@@ -1,25 +1,35 @@
 import prisma from '../database/client';
 
 class Communes {
-    async getOneCommune(communeId) {
+    async getOneCommune(commune_code) {
         const commune = await prisma.commune.findUnique({
             where: {
-                id: communeId
+                commune_code
             }
         })
         if (!commune) return 'A commune with that id was not found'
         return commune
     }
-    async getAllCommunes(page = 1, amount = 6) {
-        const amountOfSkips = (page - 1) * amount + 1.
+    async getAllCommunes(page?, amount?) {
+        let communes
 
-        const communes = await prisma.commune.findMany({
-            skip: amountOfSkips,
-            take: amount,
-            orderBy: {
-                commune_name: 'desc'
-            }
-        })
+        if (!Number.isNaN(page)) {
+            const amountOfSkips = (page - 1) * amount + 1.
+            communes = await prisma.commune.findMany({
+                skip: amountOfSkips,
+                take: amount,
+                orderBy: {
+                    commune_name: 'desc'
+                }
+            })
+        } else {
+            communes = await prisma.commune.findMany({
+                orderBy: {
+                    commune_name: 'desc'
+                }
+            })
+
+        }
         if (!communes.length) return 'There are no coomunes in the table yet'
         return communes
 

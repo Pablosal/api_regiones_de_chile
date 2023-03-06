@@ -46,9 +46,15 @@ class Province {
 
     }
     async addMultipleProvinces(provinces) {
-        const registers = await prisma.province.createMany({ data: provinces })
-        if (!registers) throw new Error("There's was an error in the creation of the registers");
-        return registers
+        try {
+            const registers = await prisma.province.createMany({ data: provinces })
+            console.log('registers', registers);
+            if (!registers) throw new Error("There's was an error in the creation of the registers");
+            return registers
+
+        } catch (error) {
+            console.log({ error })
+        }
     }
 
 }

@@ -28,8 +28,8 @@ model region {
   updatedAt           DateTime @updatedAt
   region_name         String   @db.VarChar(255)
   roman_number        String   @db.VarChar(10)
-  region_number       Int
-  region_iso_3166_2   String   @db.VarChar(5)
+  region_number       Int      @unique
+  region_iso_3166_2   String   @unique @db.VarChar(5)
   region_abbreviation String   @db.VarChar(5)
 
   provinces province[]
@@ -49,8 +49,8 @@ model province {
   provincial_capital String    @db.VarChar(60)
   country            country?  @relation(fields: [countryId], references: [id])
   countryId          String?
-  region             region?   @relation(fields: [regionId], references: [id])
-  regionId           String?
+  region             region?   @relation(fields: [regionIso], references: [region_iso_3166_2])
+  regionIso          String?
   communes           commune[]
 }
 
@@ -67,6 +67,6 @@ model commune {
 
   province   province? @relation(fields: [provinceId], references: [id])
   provinceId String?
-  region     region?   @relation(fields: [regionId], references: [id])
-  regionId   String?
+  region     region?   @relation(fields: [regionIso], references: [region_iso_3166_2])
+  regionIso  String?
 }

@@ -45,7 +45,7 @@ model province {
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
   province_name      String    @db.VarChar(255)
-  province_code      String    @db.VarChar(8)
+  province_code      String    @unique @db.VarChar(8)
   provincial_capital String    @db.VarChar(60)
   country            country?  @relation(fields: [countryId], references: [id])
   countryId          String?
@@ -65,8 +65,8 @@ model commune {
   commune_postal_code String   @db.VarChar(12)
   commune_coordinates String   @db.VarChar(200)
 
-  province   province? @relation(fields: [provinceId], references: [id])
-  provinceId String?
-  region     region?   @relation(fields: [regionIso], references: [region_iso_3166_2])
-  regionIso  String?
+  province     province? @relation(fields: [provinceCode], references: [province_code])
+  provinceCode String?
+  region       region?   @relation(fields: [regionIso], references: [region_iso_3166_2])
+  regionIso    String?
 }

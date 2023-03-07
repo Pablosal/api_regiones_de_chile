@@ -4,13 +4,13 @@ class ProvinceService {
     constructor() {
         // this.tsprovincees = JSON.parse(provincees);
     }
-    // async getCommunesFromProvince(provinceId) {
-    //     const communesFP = province.getAllCommunesFromProvince(provinceId)
-    //     return communesFP
+    async getCommunesFromProvince(province_code) {
+        const communesFP = province.getAllCommunesFromProvince(province_code)
+        return communesFP
 
-    // }
-    async getOneProvince(provinceId) {
-        const provinceFromDb = await province.getOneProvince(provinceId)
+    }
+    async getOneProvince(province_code) {
+        const provinceFromDb = await province.getOneProvince(province_code)
         return provinceFromDb
     }
     async getAllProvinces(page, amount) {

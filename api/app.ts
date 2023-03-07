@@ -15,9 +15,8 @@ app.use('/api/v1/add-country', async (req, res, next) => {
 
 
     const addedCountry = await region.addCountry()
-    console.log(addedCountry);
 
-    res.json({ msg: "Added Country" })
+    res.json({ msg: "Added Country", addedCountry })
 
 });
 app.use('/api/v1/provinces', provincesRouter);

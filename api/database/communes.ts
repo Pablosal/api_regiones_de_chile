@@ -34,6 +34,20 @@ class Communes {
         return communes
 
     }
+    async getCommunesFromRegion(region_iso, page = 1, amount = 10) {
+        const amountOfSkips = (page - 1) * amount + 1.
+        const communesFR = await prisma.commune.findMany({
+            where: {
+                regionIso: region_iso
+            },
+            take: amount,
+            skip: amountOfSkips
+
+        })
+
+        if (!communesFR.length) return 'This region has no communes'
+        return communesFR
+    }
     async addMultipleCommunes(regions) {
         const registers = await prisma.commune.createMany({ data: regions })
         if (!registers) throw new Error("There's was an error in the creation of the registers");

@@ -15,35 +15,6 @@ class Region {
             }
         })
     }
-    async getCommunesFromRegion(region_iso, page = 1, amount = 10) {
-        const amountOfSkips = (page - 1) * amount + 1.
-        const communesFR = await prisma.commune.findMany({
-            where: {
-                regionIso: region_iso
-            },
-            take: amount,
-            skip: amountOfSkips
-
-        })
-        console.log(communesFR)
-        if (!communesFR.length) return 'This region has no communes'
-        return communesFR
-    }
-    async getProvincesFromRegion(region_iso, page = 1, amount = 10) {
-        const amountOfSkips = (page - 1) * amount + 1.
-        const provincesFR = await prisma.province.findMany({
-            where: {
-                regionIso: region_iso
-            },
-            // take: amount,
-            // skip: amountOfSkips
-
-        })
-        console.log('provincesFR', provincesFR);
-
-        if (!provincesFR.length) return 'This region has no provinces'
-        return provincesFR
-    }
     async getOneRegion(region_iso) {
         const region = await prisma.region.findFirst({
             where: {
@@ -54,14 +25,25 @@ class Region {
         return region
     }
     async getAllRegions(page = 1, amount = 6) {
-        const amountOfSkips = (page - 1) * amount + 1.
-        const regions = await prisma.region.findMany({
-            skip: amountOfSkips,
-            take: amount,
-            orderBy: {
-                region_number: 'desc'
-            }
-        })
+
+        let regions
+        if (!Number.isNaN(page)) {
+            const amountOfSkips = (page - 1) * amount + 1.
+            regions = await prisma.commune.findMany({
+                skip: amountOfSkips,
+                take: amount,
+                orderBy: {
+                    commune_name: 'desc'
+                }
+            })
+        } else {
+            regions = await prisma.commune.findMany({
+                orderBy: {
+                    commune_name: 'desc'
+                }
+            })
+
+        }
         if (!regions.length) return 'There are no regions to send'
         return regions
 
@@ -69,7 +51,7 @@ class Region {
     async addMultipleRegions(regions) {
         if (!regions) throw new Error("Dude you got to put the regions");
         const registers = await prisma.region.createMany({ data: regions })
-        console.log('registers', registers);
+
 
         if (!registers) throw new Error("There's was an error in the creation of the registers");
         return registers

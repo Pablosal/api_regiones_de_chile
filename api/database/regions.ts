@@ -25,22 +25,33 @@ class Region {
         return region
     }
     async getAllRegions(page = 1, amount = 6) {
-
         let regions
         if (!Number.isNaN(page)) {
             const amountOfSkips = (page - 1) * amount + 1.
-            regions = await prisma.commune.findMany({
+            regions = await prisma.region.findMany({
                 skip: amountOfSkips,
                 take: amount,
+                select: {
+                    id: true,
+                    region_iso_3166_2: true,
+                    region_name: true,
+                    region_number: true
+                },
                 orderBy: {
-                    commune_name: 'desc'
+                    roman_number: 'desc'
                 }
             })
         } else {
-            regions = await prisma.commune.findMany({
+            regions = await prisma.region.findMany({
+                select: {
+                    id: true,
+                    region_iso_3166_2: true,
+                    region_name: true,
+                    region_number: true
+                },
                 orderBy: {
-                    commune_name: 'desc'
-                }
+                    roman_number: 'desc'
+                },
             })
 
         }

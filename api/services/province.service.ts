@@ -1,11 +1,10 @@
+import communes from "../database/communes"
 import province from "../database/province"
 
 class ProvinceService {
-    constructor() {
-        // this.tsprovincees = JSON.parse(provincees);
-    }
+
     async getCommunesFromProvince(province_code) {
-        const communesFP = province.getAllCommunesFromProvince(province_code)
+        const communesFP = communes.getAllCommunesFromProvince(province_code)
         return communesFP
 
     }

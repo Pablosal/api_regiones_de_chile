@@ -1,16 +1,15 @@
 import prisma from '../database/client';
 class Province {
-    async getAllCommunesFromProvince(province_code) {
-        const communesFromProvince = await prisma.commune.findMany({
-            where: {
-                provinceId: province_code
-            }
-        })
-        if (!communesFromProvince.length) return 'This province does not have any commune'
-        return communesFromProvince
-    }
+
     async getOneProvince(province_code) {
         const province = await prisma.province.findFirst({
+            select: {
+                id: true,
+                province_name: true,
+                province_code: true,
+                provincial_capital: true,
+                regionIso: true
+            },
             where: {
                 province_code
             }
@@ -24,13 +23,26 @@ class Province {
             const amountOfSkips = (page - 1) * amount + 1.
             provinces = await prisma.province.findMany({
                 skip: amountOfSkips,
-                take: amount,
+                take: amount, select: {
+                    id: true,
+                    province_name: true,
+                    province_code: true,
+                    provincial_capital: true,
+                    regionIso: true
+                },
                 orderBy: {
                     province_name: 'desc'
                 }
             })
         } else {
             provinces = await prisma.province.findMany({
+                select: {
+                    id: true,
+                    province_name: true,
+                    province_code: true,
+                    provincial_capital: true,
+                    regionIso: true
+                },
                 orderBy: {
                     province_name: 'desc'
                 }
@@ -58,6 +70,13 @@ class Province {
         if (!Number.isNaN(page)) {
             const amountOfSkips = (page - 1) * amount + 1.
             provincesFR = await prisma.province.findMany({
+                select: {
+                    id: true,
+                    province_name: true,
+                    province_code: true,
+                    provincial_capital: true,
+                    regionIso: true
+                },
                 where: {
                     regionIso: region_iso
                 },
@@ -67,6 +86,13 @@ class Province {
             })
         } else {
             provincesFR = await prisma.province.findMany({
+                select: {
+                    id: true,
+                    province_name: true,
+                    province_code: true,
+                    provincial_capital: true,
+                    regionIso: true
+                },
                 where: {
                     regionIso: region_iso
                 },

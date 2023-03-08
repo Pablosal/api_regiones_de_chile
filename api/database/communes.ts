@@ -17,13 +17,28 @@ class Communes {
             const amountOfSkips = (page - 1) * amount + 1.
             communes = await prisma.commune.findMany({
                 skip: amountOfSkips,
-                take: amount,
+                take: amount, select: {
+                    id: true,
+                    commune_code: true,
+                    commune_identifier: true,
+                    commune_name: true,
+                    regionIso: true,
+
+                },
                 orderBy: {
                     commune_name: 'desc'
                 }
             })
         } else {
             communes = await prisma.commune.findMany({
+                select: {
+                    id: true,
+                    commune_code: true,
+                    commune_identifier: true,
+                    commune_name: true,
+                    regionIso: true,
+
+                },
                 orderBy: {
                     commune_name: 'desc'
                 }
@@ -47,6 +62,23 @@ class Communes {
 
         if (!communesFR.length) return 'This region has no communes'
         return communesFR
+    }
+    async getAllCommunesFromProvince(province_code) {
+        const communesFromProvince = await prisma.commune.findMany({
+            select: {
+                id: true,
+                commune_code: true,
+                commune_identifier: true,
+                commune_name: true,
+                regionIso: true,
+
+            },
+            where: {
+                provinceId: province_code
+            }
+        })
+        if (!communesFromProvince.length) return 'This province does not have any commune'
+        return communesFromProvince
     }
     async addMultipleCommunes(regions) {
         const registers = await prisma.commune.createMany({ data: regions })

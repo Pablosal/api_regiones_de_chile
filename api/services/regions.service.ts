@@ -3,9 +3,7 @@ import province from "../database/province";
 import region from "../database/regions";
 
 class RegionService {
-    constructor() {
-        // this.tsRegiones = JSON.parse(regiones);
-    }
+
     async getCommunesFromRegion(region_iso, page = 1, amount = 10) {
         const communesFR = await communes.getCommunesFromRegion(region_iso, page, amount)
         return communesFR

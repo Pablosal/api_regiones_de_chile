@@ -12,16 +12,16 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use('/api/v1/add-country', async (req, res, next) => {
-
-
     const addedCountry = await region.addCountry()
-
     res.json({ msg: "Added Country", addedCountry })
 
 });
+
 app.use('/api/v1/provinces', provincesRouter);
 app.use('/api/v1/regions', regionsRouter);
 app.use('/api/v1/communes', communesRouter);
+
+
 app.listen(process.env.PORT, () => console.log(`Aplicacion corriendo en el puerto ${process.env.PORT}`));
 // TOPOJSON ?
 

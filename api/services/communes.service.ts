@@ -1,9 +1,7 @@
 import communes from "../database/communes"
 
 class CommunesService {
-    constructor() {
-        // this.tsRegiones = JSON.parse(regiones);
-    }
+
     async getOneCommune(commune_code) {
         const regionFromDb = await communes.getOneCommune(commune_code)
         return regionFromDb

@@ -1,0 +1,486 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Api de Regiones - Provincias - Communas de Chile",
+    "description": "Api pensada para entregar las regiones, comunas y provincias de Chile, el uso en mente es en el uso comun de inputs select donde podamos seleccionar la region segun la disponibilidad en regiones.\n\nAgradecimientos especiales a todos los colaboradores del gist de json comunas y regiones de chile de  @juabrujo donde se fue basada la creacion en una base de datos.",
+    "contact": {
+      "email": "pablosalgadou@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Link al Gist de @juabrujo",
+    "url": "hhttps://gist.github.com/juanbrujo/0fd2f4d126b3ce5a95a7dd1f28b3d8dd"
+  },
+  "servers": [
+    {
+      "url": "https://petstore3.swagger.io/api/v3"
+    }
+  ],
+  "tags": [
+    {
+      "name": "regions",
+      "description": "Obtener la informacion de regiones de Chile"
+    },
+    {
+      "name": "provinces",
+      "description": "Obtener la informacion de provincias de Chile",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "communes",
+      "description": "Obtener la informacion de comunas de Chile de manera independiente o de una region o comuna"
+    }
+  ],
+  "paths": {
+    "/regions": {
+      "get": {
+        "description": "Permite obtener todas las regiones de Chile, ya que son 16 permite una paginacion opcional, si no se le entregan parametros en como query los entregara todos de una sola vez.  \n Su respuesta esta cacheada por 5 segundos.\n",
+        "tags": ["regions"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "description": "La pagina de elementos que corresponde a la paginacion, la cantidad de elementos se determinara segun el parametro amount la pagina 1 por ejemplo para tendra los primeros 10 elementos si fuera un amount de 10, y la 2 tendria del 11 al 20."
+          },
+          {
+            "in": "query",
+            "name": "amount",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "description": "Cantidad de elementos que se obtendran de la base de datos."
+          }
+        ],
+        "summary": "Obtiene todas las regiones de Chile",
+        "responses": {
+          "200": {
+            "description": "Operacion Correcta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Region"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regions/{region_iso}/communes": {
+      "get": {
+        "description": "Permite obtener todas las comunas de una region por medio de su region_iso_3166_2 para elegir la region.\n   \nPermite paginacion por medio de una query string añadiendo page y amount, en caso de no existir, entregara todas las comunas de la region pedida.\n \n  Su respuesta esta cacheada por 5 segundos.\n",
+        "tags": ["regions"],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "region_iso",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Region ISO code from region"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "description": "La pagina de elementos que corresponde a la paginacion, la cantidad de elementos se determinara segun el parametro amount la pagina 1 por ejemplo para tendra los primeros 10 elementos si fuera un amount de 10, y la 2 tendria del 11 al 20."
+          },
+          {
+            "in": "query",
+            "name": "amount",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "description": "Cantidad de elementos que se obtendran de la base de datos."
+          }
+        ],
+        "summary": "Obtiene todas las comunas de la region",
+        "responses": {
+          "200": {
+            "description": "Operacion Correcta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Commune"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Commune"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regions/{region_iso}/provinces": {
+      "get": {
+        "tags": ["regions"],
+        "summary": "Obtiene todas las provincias de una region",
+        "description": "Permite obtener todas las provincias por medio de su region_iso_3166_2 para elegir la region.\n\nPermite paginacion por medio de una query string añadiendo page y amount, en caso de no existir, entregara todas las comunas de la region pedida.\n \n  Su respuesta esta cacheada por 5 segundos.\n",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "region_iso",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Region ISO code from region"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "description": "La pagina de elementos que corresponde a la paginacion, la cantidad de elementos se determinara segun el parametro amount la pagina 1 por ejemplo para tendra los primeros 10 elementos si fuera un amount de 10, y la 2 tendria del 11 al 20."
+          },
+          {
+            "in": "query",
+            "name": "amount",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "description": "Cantidad de elementos que se obtendran de la base de datos."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion Correcta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Province"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/regions/{region_iso}": {
+      "get": {
+        "parameters": [
+          {
+            "in": "path",
+            "name": "region_iso",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "Region ISO code from region"
+          }
+        ],
+        "tags": ["regions"],
+        "summary": "Obtiene una region por medio de su codigo iso",
+        "description": "Se obtiene la informacion de una sola region gracias a el codigo region_iso_3166_2\n",
+        "responses": {
+          "200": {
+            "description": "Operacion Correcta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Region"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/communes": {
+      "get": {
+        "tags": ["communes"],
+        "summary": "Obtiene todas las comunas de Chile",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "description": "La pagina de elementos que corresponde a la paginacion, la cantidad de elementos se determinara segun el parametro amount la pagina 1 por ejemplo para tendra los primeros 10 elementos si fuera un amount de 10, y la 2 tendria del 11 al 20."
+          },
+          {
+            "in": "query",
+            "name": "amount",
+            "schema": {
+              "type": "string"
+            },
+            "required": false,
+            "description": "Cantidad de elementos que se obtendran de la base de datos."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operacion Correcta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Commune"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Commune"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/communes/:commune_code": {
+      "get": {
+        "tags": ["communes"],
+        "summary": "Obtiene una comuna por medio de su codigo",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "responses": {
+          "200": {
+            "description": "Operacion Correcta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Commune"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Commune"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/provinces": {
+      "get": {
+        "tags": ["provinces"],
+        "summary": "Obtiene todas las provincias de Chile",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "responses": {
+          "200": {
+            "description": "Operacion Correcta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Region"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Region"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/provinces/:province_code": {
+      "get": {
+        "tags": ["provinces"],
+        "summary": "Obtiene una sola provincia por medio de su codigo de provincia",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "responses": {
+          "200": {
+            "description": "Operacion Correcta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Province"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Province"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/provinces/:province_code/communes": {
+      "get": {
+        "tags": ["provinces"],
+        "summary": "Obtiene todas las comunas de una provincia especificada",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "responses": {
+          "200": {
+            "description": "Operacion Correcta",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Region"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Region"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Region": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "b284c245-c878-4987-b00d-91de5453e0fc"
+          },
+          "region_iso_3166_2": {
+            "type": "string",
+            "example": "NB"
+          },
+          "region_name": {
+            "type": "string",
+            "example": "Ñuble"
+          },
+          "region_number": {
+            "type": "integer",
+            "format": "int64",
+            "example": 16
+          }
+        }
+      },
+      "Commune": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "5a365c91-5399-4fbe-a0f0-3764fcb9e56a"
+          },
+          "commune_code": {
+            "type": "string",
+            "example": "nb0109"
+          },
+          "commune_identifier": {
+            "type": "string",
+            "example": "XVI-21"
+          },
+          "commune_name": {
+            "type": "string",
+            "example": "Yungay"
+          },
+          "regionIso": {
+            "type": "string",
+            "example": "NB"
+          }
+        }
+      },
+      "Province": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "5a365c91-5399-4fbe-a0f0-3764fcb9e56a"
+          },
+          "commune_code": {
+            "type": "string",
+            "example": "nb0109"
+          },
+          "commune_identifier": {
+            "type": "string",
+            "example": "XVI-21"
+          },
+          "commune_name": {
+            "type": "string",
+            "example": "Yungay"
+          },
+          "regionIso": {
+            "type": "string",
+            "example": "NB"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "petstore_auth": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
+            "scopes": {
+              "write:pets": "modify pets in your account",
+              "read:pets": "read your pets"
+            }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  }
+}

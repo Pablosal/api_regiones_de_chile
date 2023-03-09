@@ -6,16 +6,16 @@ class ProvincesController {
         // this.tsRegiones = JSON.parse(regiones);
     }
 
-    // async getAllCommunesFromProvince(req: Request, res: Response) {
-    //     const { provinceId } = req.params
-    //     const communesFP = await provinceService.getCommunesFromProvince(provinceId)
-    //     res.status(200).json({
-    //         communes: communesFP
-    //     })
-    // }
+    async getAllCommunesFromProvince(req: Request, res: Response) {
+        const { province_code } = req.params
+        const communesFP = await provinceService.getCommunesFromProvince(province_code)
+        res.status(200).json({
+            communes: communesFP
+        })
+    }
     async getOneProvince(req: Request, res: Response) {
-        const { provinceId } = req.params
-        const province = await provinceService.getOneProvince(provinceId)
+        const { province_code } = req.params
+        const province = await provinceService.getOneProvince(province_code)
         if (!province) return res.status(400).json({ msg: "Province not found" })
         res.status(200).json({ province })
     }

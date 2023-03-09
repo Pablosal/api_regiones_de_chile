@@ -1,10 +1,9 @@
 import { Response, Request } from 'express';
 
 import regionService from '../services/regions.service';
+import { addRegionSchema, getFromRegionSchema } from '../utils/validations';
 class RegionsController {
-  constructor() {
-    // this.tsRegiones = JSON.parse(regiones);
-  }
+
   async getCommunesFromRegion(req: Request, res: Response) {
     const { region_iso } = req.params
     const { page, amount } = req.query
@@ -22,9 +21,14 @@ class RegionsController {
   }
   async getOneRegion(req: Request, res: Response) {
     const { region_iso } = req.params
+    const { error } = getFromRegionSchema.validate(req.params)
+    if (error) return res.status(400).json({ msg: error.message })
     const region = await regionService.getOneRegion(region_iso)
+
     if (!region) return res.status(400).json({ msg: "Region not found" })
+
     res.status(200).json({ region })
+
   }
   async getAllRegions(req: Request, res: Response) {
     const { page, amount } = req.query
@@ -32,7 +36,9 @@ class RegionsController {
     res.status(200).json(regions)
   }
   async addMultipleRegions(req, res) {
-    const { regions } = req.body
+    const { error, value: regions } = addRegionSchema.validate(req.body)
+
+
     const records = await regionService.addMultipleRegions(regions)
     if (!records) return res.status(400).json({ msg: "error in the creation of recors succesfully" })
     return res.status(200).json({ msg: "records created succesfully", records })

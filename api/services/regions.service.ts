@@ -1,15 +1,15 @@
+import communes from "../database/communes";
+import province from "../database/province";
 import region from "../database/regions";
 
 class RegionService {
-    constructor() {
-        // this.tsRegiones = JSON.parse(regiones);
-    }
+
     async getCommunesFromRegion(region_iso, page = 1, amount = 10) {
-        const communesFR = await region.getCommunesFromRegion(region_iso, page, amount)
+        const communesFR = await communes.getCommunesFromRegion(region_iso, page, amount)
         return communesFR
     }
     async getProvincesFromRegion(region_iso, page = 1, amount = 10) {
-        const provincesFR = await region.getProvincesFromRegion(region_iso, page, amount)
+        const provincesFR = await province.getProvincesFromRegion(region_iso, page, amount)
         return provincesFR
 
 

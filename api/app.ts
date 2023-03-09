@@ -4,27 +4,30 @@ import regionsRouter from './v1/routes/regions.routes';
 import region from './database/regions';
 import provincesRouter from './v1/routes/provinces.routes';
 import communesRouter from './v1/routes/communes.routes';
-dotenv.config()
+import swaggerUI from 'swagger-ui-express'
+import swaggerDoc from '../documentation.json'
+if (process.env.NODE_ENV === "development") {
+    dotenv.config()
+}
 
-const app = express();
-
+export const app = express();
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.use('/api/v1/add-country', async (req, res, next) => {
-
-
     const addedCountry = await region.addCountry()
-    console.log(addedCountry);
-
-    res.json({ msg: "Added Country" })
+    res.json({ msg: "Added Country", addedCountry })
 
 });
+
 app.use('/api/v1/provinces', provincesRouter);
 app.use('/api/v1/regions', regionsRouter);
 app.use('/api/v1/communes', communesRouter);
-app.listen(process.env.PORT, () => console.log(`Aplicacion corriendo en el puerto ${process.env.PORT}`));
-// TOPOJSON ?
+app.use('/', swaggerUI.serve, swaggerUI.setup(swaggerDoc));
+
+
+export const server = app.listen(process.env.PORT, () => console.log(`Aplicacion corriendo en el puerto ${process.env.PORT}`));
+
 
 
 

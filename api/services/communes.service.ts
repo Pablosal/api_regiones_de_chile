@@ -12,8 +12,8 @@ class CommunesService {
 
 
     }
-    async addMultipleCommunes(regions) {
-        const records = await communes.addMultipleCommunes(regions)
+    async addMultipleCommunes(communesdata) {
+        const records = await communes.addMultipleCommunes(communesdata)
         return records
     }
 }

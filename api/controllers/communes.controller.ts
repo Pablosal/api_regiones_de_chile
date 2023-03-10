@@ -17,6 +17,8 @@ class CommunesController {
   }
   async addMultipleCommunes(req, res) {
     const { communes } = req.body
+    console.log('communes', communes.length);
+
     const records = await communesService.addMultipleCommunes(communes)
     if (!records) return res.status(400).json({ msg: "error in the creation of recors succesfully" })
     return res.status(200).json({ msg: "records created succesfully", records })

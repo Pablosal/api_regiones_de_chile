@@ -74,14 +74,14 @@ class Communes {
 
             },
             where: {
-                provinceId: province_code
+                provinceCode: province_code
             }
         })
         if (!communesFromProvince.length) return 'This province does not have any commune'
         return communesFromProvince
     }
-    async addMultipleCommunes(regions) {
-        const registers = await prisma.commune.createMany({ data: regions })
+    async addMultipleCommunes(communes) {
+        const registers = await prisma.commune.createMany({ data: communes })
         if (!registers) throw new Error("There's was an error in the creation of the registers");
         return registers
     }

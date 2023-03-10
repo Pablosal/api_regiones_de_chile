@@ -60,12 +60,20 @@ class Region {
 
     }
     async addMultipleRegions(regions) {
-        if (!regions) throw new Error("Dude you got to put the regions");
-        const registers = await prisma.region.createMany({ data: regions })
+        try {
+            if (!regions) throw new Error("Dude you got to put the regions");
+            const registers = await prisma.region.createMany({ data: regions.regions })
 
 
-        if (!registers) throw new Error("There's was an error in the creation of the registers");
-        return registers
+            if (!registers) throw new Error("There's was an error in the creation of the registers");
+            return registers
+
+        } catch (error) {
+            console.log('error', error);
+
+            return error
+
+        }
     }
 
 }
